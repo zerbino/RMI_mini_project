@@ -19,6 +19,14 @@ public class Chatter {
 		this.messagesEnregistres.add("Enlève ton sweat");
 	}
 
+	public String getUserName() {
+		return this.userName;
+	}
+
+	public int getRemainingMessages() {
+		return this.messagesEnregistres.size();
+	}
+
 	public void sendMessage(String message, String user) {
 		chat.sendMessage(message, user);
 	}
@@ -27,16 +35,9 @@ public class Chatter {
 		return chat.receiveMessage(this.userName);
 	}
 
-	public void loop() {
-		while (true) {
-			System.out.println(this.receiveMessage());
-			Random random = new Random();
-			boolean post = (random.nextInt() < 0.5);
-			if (post && this.messagesEnregistres.size() != 0)
-				this.sendMessage(this.messagesEnregistres
-						.remove(this.messagesEnregistres.size() - 1),
-						this.userName);
-		}
+	public void sendAndReceive(Chatter chatter) {
+		System.out.println(this.receiveMessage());
+		sendMessage(this.messagesEnregistres.remove(0), chatter.getUserName());
 	}
 
 	public static void main(String[] args) {
@@ -47,13 +48,18 @@ public class Chatter {
 			String name = "Chat";
 			Registry registry = LocateRegistry.getRegistry(args[0]);
 			Chat chat = (Chat) registry.lookup(name);
-			Chatter chatter = new Chatter(chat,"JeanLaChaudiere");
+			Chatter chatter = new Chatter(chat, "JeanLaChaudiere");
 			Chatter chatter1 = new Chatter(chat, "SophieCoquine44");
-			chatter.loop();
-			chatter1.loop();
+			
+			while (chatter.getRemainingMessages() > 0
+					&& chatter1.getRemainingMessages() > 0) {
+
+				chatter.sendAndReceive(chatter1);
+				chatter1.sendAndReceive(chatter);
+			}
 
 		} catch (Exception e) {
-			System.err.println("ComputePi exception:");
+			System.err.println("Chatter exception:");
 			e.printStackTrace();
 		}
 	}

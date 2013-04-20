@@ -8,6 +8,10 @@ import java.util.NoSuchElementException;
 
 public class ChatEngine  implements Chat{
 	
+	/**
+	 * The HashMap mapping a name of user to a Queue of messages. The queue of messages represents the messages 
+	 * to receive for a user
+	 */
 	private HashMap<String, LinkedList<String>> messages;
 	
 	
