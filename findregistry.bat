@@ -1,0 +1,1 @@
+tasklist /FI "imagename eq rmiregistry.exe"
