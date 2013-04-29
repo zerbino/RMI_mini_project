@@ -1,0 +1,4 @@
+Normalement on devrait aussi avoir une interface du client. Parce que le chat
+c'est pas une architecture RMI classique. Le serveur aussi appelle le client. 
+Donc le client est une forme de serveur et donc il a besoin d'avoir une inter-
+face.

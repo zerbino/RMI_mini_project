@@ -1,3 +1,4 @@
+import java.net.InetAddress;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -46,7 +47,10 @@ public class ChatEngine  implements Chat{
 	            Chat stub =
 	                (Chat) UnicastRemoteObject.exportObject(engine, 0);
 	            Registry registry = LocateRegistry.getRegistry();
-	            registry.rebind(name, stub);
+	            
+	            String url = "rmi://" + InetAddress.getLocalHost().getHostAddress()+"/"+name;
+	            
+	            registry.rebind(url, stub);
 	            System.out.println("ComputeEngine bound");
 	        } catch (Exception e) {
 	            System.err.println("ComputeEngine exception:");
