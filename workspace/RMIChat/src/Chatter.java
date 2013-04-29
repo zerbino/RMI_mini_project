@@ -1,3 +1,4 @@
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
@@ -28,11 +29,21 @@ public class Chatter {
 	}
 
 	public void sendMessage(String message, String user) {
-		chat.sendMessage(message, user);
+		
+		try {
+			chat.sendMessage(message, user);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public String receiveMessage() {
-		return chat.receiveMessage(this.userName);
+		try {
+			return chat.receiveMessage(this.userName);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 
 	public void sendAndReceive(Chatter chatter) {

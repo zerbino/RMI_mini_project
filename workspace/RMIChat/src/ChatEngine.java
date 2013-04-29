@@ -1,4 +1,5 @@
 import java.net.InetAddress;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -7,7 +8,7 @@ import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 
-public class ChatEngine  implements Chat{
+public class ChatEngine  extends UnicastRemoteObject implements Chat{
 	
 	/**
 	 * The HashMap mapping a name of user to a Queue of messages. The queue of messages represents the messages 
@@ -16,7 +17,7 @@ public class ChatEngine  implements Chat{
 	private HashMap<String, LinkedList<String>> messages;
 	
 	
-	public ChatEngine() {
+	public ChatEngine() throws RemoteException {
 		super();
 		this.messages = new HashMap<String, LinkedList<String>>();
 	}
@@ -38,9 +39,11 @@ public class ChatEngine  implements Chat{
 	}
 	
 	 public static void main(String[] args) {
+		 
 	        if (System.getSecurityManager() == null) {
 	            System.setSecurityManager(new SecurityManager());
 	        }
+	        
 	        try {
 	            String name = "Chat";
 	            Chat engine = new ChatEngine();
