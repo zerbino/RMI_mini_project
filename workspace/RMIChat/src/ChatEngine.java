@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 
-public class ChatEngine  extends UnicastRemoteObject implements Chat{
+public class ChatEngine implements Chat{
 	
 	/**
 	 * The HashMap mapping a name of user to a Queue of messages. The queue of messages represents the messages 
@@ -51,9 +51,8 @@ public class ChatEngine  extends UnicastRemoteObject implements Chat{
 	                (Chat) UnicastRemoteObject.exportObject(engine, 0);
 	            Registry registry = LocateRegistry.getRegistry();
 	            
-	            String url = "rmi://" + InetAddress.getLocalHost().getHostAddress()+"/"+name;
 	            
-	            registry.rebind(url, stub);
+	            registry.rebind(name, stub);
 	            System.out.println("ComputeEngine bound");
 	        } catch (Exception e) {
 	            System.err.println("ComputeEngine exception:");
