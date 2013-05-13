@@ -1,3 +1,0 @@
-grant codeBase "file:/tmp/chat/" {
-    permission java.security.AllPermission;
-};
