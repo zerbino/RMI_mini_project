@@ -1,0 +1,3 @@
+grant codeBase "file: E:\Marti\cours\workspace\RMIChat\workspace\Chaton\bin\client" {
+    permission java.security.AllPermission;
+};

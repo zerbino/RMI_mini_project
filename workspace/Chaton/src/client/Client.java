@@ -46,13 +46,18 @@ public class Client implements IClient {
 		this.id = id;
 	}
 	
+	@Override
+	public String toString(){
+		return this.id;
+	}
+	
 	 public static void main(String args[]) {
 		 //if (System.getSecurityManager() == null) {
 		//	 System.setSecurityManager(new SecurityManager());
 		 //}
 		 try {
 			 String name = "ServerChat";
-			 Registry registry = LocateRegistry.getRegistry("172.18.1.2");
+			 Registry registry = LocateRegistry.getRegistry();
 			 IChat chat = (IChat) registry.lookup(name);
 			 System.out.println("Serveur trouvé");
 	     
